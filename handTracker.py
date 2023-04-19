@@ -3,13 +3,13 @@ import mediapipe as mp
 import time
 
 
-class handDetector():
+class handTracker():
     def __init__(self):
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands()
         self.mpDraw = mp.solutions.drawing_utils
 
-    def findHands(self, img):
+    def Track(self, img):
 
         # convert OpenCV's BGR image to RGB
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -32,13 +32,13 @@ def main():
     pTime = 0
     cTime = 0
 
-    detector = handDetector()
+    detector = handTracker()
 
     while True:
         # grab the current frame from the webcam
         success, img = cap.read()
 
-        results = detector.findHands(img)
+        results = detector.Track(img)
 
         img = detector.draw(results, img)
 
