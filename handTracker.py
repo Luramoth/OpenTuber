@@ -2,24 +2,27 @@ import cv2
 import mediapipe as mp
 import time
 
-mpHands = mp.solutions.hands
-hands = mpHands.Hands()
-mpDraw = mp.solutions.drawing_utils
 
+class handDetector():
+    def __init__(self):
+        self.mpHands = mp.solutions.hands
+        self.hands = self.mpHands.Hands()
+        self.mpDraw = mp.solutions.drawing_utils
 
-def Track(img):
-    # convert OpenCV's BGR image to RGB
-    imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    def findHands(self, img):
 
-    # tell Mediapipe to process the image
-    return hands.process(imgRGB)
+        # convert OpenCV's BGR image to RGB
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+        return self.hands.process(imgRGB)
 
-def Draw(img, results):
-    if results.multi_hand_landmarks:  # if tracking
-        for handLms in results.multi_hand_landmarks:  # for every tracker point
-            # draw it on the image
-            mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
+    def draw(self, results, img):
+        if results.multi_hand_landmarks:  # if tracking
+            for handLms in results.multi_hand_landmarks:  # for every tracker point
+                # draw it on the image
+                self.mpDraw.draw_landmarks(
+                    img, handLms, self.mpHands.HAND_CONNECTIONS)
+        return img
 
 
 def main():
@@ -29,14 +32,15 @@ def main():
     pTime = 0
     cTime = 0
 
+    detector = handDetector()
+
     while True:
         # grab the current frame from the webcam
         success, img = cap.read()
 
-        # get the results of tracking
-        results = Track(img)
+        results = detector.findHands(img)
 
-        Draw(img, results)
+        img = detector.draw(results, img)
 
         # gather FPS
         cTime = time.time()
