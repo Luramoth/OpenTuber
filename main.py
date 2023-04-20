@@ -1,9 +1,7 @@
 import cv2
 import time
 
-import HandTracker
-import PoseTracker
-import FaceTracker
+from Trackers import FaceTracker, HandTracker, PoseTracker
 
 
 def main():
