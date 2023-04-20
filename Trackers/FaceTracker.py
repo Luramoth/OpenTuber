@@ -28,7 +28,6 @@ def main():
     cap = cv2.VideoCapture(0)
 
     p_time = 0
-    c_time = 0
 
     tracker = FaceTracker()
 

@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 
 
-class HandTracker():
+class HandTracker:
     def __init__(self):
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands()
@@ -29,7 +29,6 @@ def main():
     cap = cv2.VideoCapture(0)
 
     p_time = 0
-    c_time = 0
 
     detector = HandTracker()
 

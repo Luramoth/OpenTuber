@@ -8,29 +8,28 @@ def main():
     # grab the webcam
     cap = cv2.VideoCapture(0)
 
-    pTime = 0
-    cTime = 0
+    p_time = 0
 
-    pTracker = PoseTracker.PoseTracker()
-    hTracker = HandTracker.HandTracker()
-    fTracker = FaceTracker.FaceTracker()
+    p_tracker = PoseTracker.PoseTracker()
+    h_tracker = HandTracker.HandTracker()
+    f_tracker = FaceTracker.FaceTracker()
 
     while True:
         # grab the current frame from the webcam
         success, img = cap.read()
 
-        pResults = pTracker.track(img)
-        hResults = hTracker.track(img)
-        fResults = fTracker.track(img)
+        p_results = p_tracker.track(img)
+        h_results = h_tracker.track(img)
+        f_results = f_tracker.track(img)
 
-        img = pTracker.draw(pResults, img)
-        img = hTracker.draw(hResults, img)
-        img = fTracker.draw(fResults, img)
+        img = p_tracker.draw(p_results, img)
+        img = h_tracker.draw(h_results, img)
+        img = f_tracker.draw(f_results, img)
 
         # gather FPS
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
+        c_time = time.time()
+        fps = 1 / (c_time - p_time)
+        p_time = c_time
 
         # display FPS
         cv2.putText(img, str(int(fps)), (18, 78),

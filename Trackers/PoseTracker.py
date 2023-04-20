@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 
 
-class PoseTracker():
+class PoseTracker:
     def __init__(self) -> None:
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose(model_complexity=0)
@@ -11,7 +11,7 @@ class PoseTracker():
 
     def track(self, img):
         # convert OpenCV's BGR image to RGB
-        img_rgb= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         return self.pose.process(img_rgb)
 
@@ -27,7 +27,6 @@ def main():
     cap = cv2.VideoCapture(0)
 
     p_time = 0
-    c_time = 0
 
     tracker = PoseTracker()
 
