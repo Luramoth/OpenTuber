@@ -20,9 +20,9 @@ def main():
         success, img = cap.read()
 
         pResults = pTracker.track(img)
-        hResults = hTracker.Track(img)
+        hResults = hTracker.track(img)
 
-        img = pTracker.Draw(pResults, img)
+        img = pTracker.draw(pResults, img)
         img = hTracker.draw(hResults, img)
 
         # gather FPS

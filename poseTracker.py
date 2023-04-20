@@ -6,16 +6,16 @@ import time
 class poseTracker():
     def __init__(self) -> None:
         self.mpPose = mp.solutions.pose
-        self.pose = self.mpPose.Pose()
+        self.pose = self.mpPose.Pose(model_complexity=0)
         self.mpDraw = mp.solutions.drawing_utils
 
     def track(self, img):
         # convert OpenCV's BGR image to RGB
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_rgb= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        return self.pose.process(imgRGB)
+        return self.pose.process(img_rgb)
 
-    def Draw(self, results, img):
+    def draw(self, results, img):
         if results.pose_landmarks:
             self.mpDraw.draw_landmarks(
                 img, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
@@ -26,8 +26,8 @@ def main():
     # grab the webcam
     cap = cv2.VideoCapture(0)
 
-    pTime = 0
-    cTime = 0
+    p_time = 0
+    c_time = 0
 
     tracker = poseTracker()
 
@@ -37,12 +37,12 @@ def main():
 
         results = poseTracker.track(tracker, img)
 
-        img = poseTracker.Draw(tracker, results, img)
+        img = poseTracker.draw(tracker, results, img)
 
         # gather FPS
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
+        c_time = time.time()
+        fps = 1 / (cTime - p_time)
+        p_time = c_time
 
         # display FPS
         cv2.putText(img, str(int(fps)), (18, 78),

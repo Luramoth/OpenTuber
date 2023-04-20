@@ -9,12 +9,12 @@ class handTracker():
         self.hands = self.mpHands.Hands()
         self.mpDraw = mp.solutions.drawing_utils
 
-    def Track(self, img):
+    def track(self, img):
 
         # convert OpenCV's BGR image to RGB
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        return self.hands.process(imgRGB)
+        return self.hands.process(img_rgb)
 
     def draw(self, results, img):
         if results.multi_hand_landmarks:  # if tracking
@@ -29,8 +29,8 @@ def main():
     # grab the webcam
     cap = cv2.VideoCapture(0)
 
-    pTime = 0
-    cTime = 0
+    p_time = 0
+    c_time = 0
 
     detector = handTracker()
 
@@ -38,14 +38,14 @@ def main():
         # grab the current frame from the webcam
         success, img = cap.read()
 
-        results = detector.Track(img)
+        results = detector.track(img)
 
         img = detector.draw(results, img)
 
         # gather FPS
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
+        c_time = time.time()
+        fps = 1 / (c_time - p_time)
+        p_time = c_time
 
         # display FPS
         cv2.putText(img, str(int(fps)), (18, 78),
