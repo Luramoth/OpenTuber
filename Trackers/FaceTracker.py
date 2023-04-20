@@ -23,6 +23,7 @@ class FaceTracker:
         return img
 
 
+# noinspection PyTypeChecker
 def main():
     # grab the webcam
     cap = cv2.VideoCapture(0)
