@@ -3,6 +3,7 @@ import time
 
 import HandTracker
 import PoseTracker
+import FaceTracker
 
 
 def main():
@@ -12,8 +13,9 @@ def main():
     pTime = 0
     cTime = 0
 
-    pTracker = poseTracker.PoseTracker()
-    hTracker = handTracker.HandTracker()
+    pTracker = PoseTracker.PoseTracker()
+    hTracker = HandTracker.HandTracker()
+    fTracker = FaceTracker.FaceTracker()
 
     while True:
         # grab the current frame from the webcam
@@ -21,9 +23,11 @@ def main():
 
         pResults = pTracker.track(img)
         hResults = hTracker.track(img)
+        fResults = fTracker.track(img)
 
         img = pTracker.draw(pResults, img)
         img = hTracker.draw(hResults, img)
+        img = fTracker.draw(fResults, img)
 
         # gather FPS
         cTime = time.time()

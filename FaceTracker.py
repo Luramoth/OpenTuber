@@ -4,7 +4,23 @@ import time
 
 
 class FaceTracker:
-    pass
+    def __init__(self):
+        self.mpDraw = mp.solutions.drawing_utils
+        self.mpFace = mp.solutions.face_mesh
+        self.face = self.mpFace.FaceMesh()
+
+    def track(self, img):
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        return self.face.process(img_rgb)
+
+    def draw(self, results, img):
+
+        if results.multi_face_landmarks:
+            for faceLms in results.multi_face_landmarks:
+                self.mpDraw.draw_landmarks(img, faceLms)
+
+        return img
 
 
 def main():
@@ -14,9 +30,15 @@ def main():
     p_time = 0
     c_time = 0
 
+    tracker = FaceTracker()
+
     while True:
         # grab the current frame from the webcam
         success, img = cap.read()
+
+        results = FaceTracker.track(tracker, img)
+
+        img = FaceTracker.draw(tracker, results, img)
 
         # gather FPS
         c_time = time.time()

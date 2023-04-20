@@ -10,7 +10,6 @@ class HandTracker():
         self.mpDraw = mp.solutions.drawing_utils
 
     def track(self, img):
-
         # convert OpenCV's BGR image to RGB
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
