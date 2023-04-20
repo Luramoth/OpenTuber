@@ -1,8 +1,8 @@
 import cv2
 import time
 
-import handTracker
-import poseTracker
+import HandTracker
+import PoseTracker
 
 
 def main():
@@ -12,8 +12,8 @@ def main():
     pTime = 0
     cTime = 0
 
-    pTracker = poseTracker.poseTracker()
-    hTracker = handTracker.handTracker()
+    pTracker = poseTracker.PoseTracker()
+    hTracker = handTracker.HandTracker()
 
     while True:
         # grab the current frame from the webcam

@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 
 
-class poseTracker():
+class PoseTracker():
     def __init__(self) -> None:
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose(model_complexity=0)
@@ -29,15 +29,15 @@ def main():
     p_time = 0
     c_time = 0
 
-    tracker = poseTracker()
+    tracker = PoseTracker()
 
     while True:
         # grab the current frame from the webcam
         success, img = cap.read()
 
-        results = poseTracker.track(tracker, img)
+        results = PoseTracker.track(tracker, img)
 
-        img = poseTracker.draw(tracker, results, img)
+        img = PoseTracker.draw(tracker, results, img)
 
         # gather FPS
         c_time = time.time()

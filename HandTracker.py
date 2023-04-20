@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 
 
-class handTracker():
+class HandTracker():
     def __init__(self):
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands()
@@ -32,7 +32,7 @@ def main():
     p_time = 0
     c_time = 0
 
-    detector = handTracker()
+    detector = HandTracker()
 
     while True:
         # grab the current frame from the webcam
